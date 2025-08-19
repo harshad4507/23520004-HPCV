@@ -2,26 +2,38 @@
 #include <stdlib.h>
 #include <omp.h>
 
-int main() {
-    int r = 500;
-    int c = 500;
-    int A[r][c];
-    int scalar = 5;
-    int i, j;   
+#define R 3   
+#define C 3
 
-    for (i = 0; i < r; i++)
-        for (j = 0; j < c; j++)
-            A[i][j] = rand() % 10;
+int main() {
+    int A[R][C] = {
+        {1, 2, 3},
+        {4, 5, 6},
+        {7, 8, 9}
+    };
+
+    int scalar = 5;
+    int i, j;
 
     double st = omp_get_wtime();
 
     #pragma omp parallel for private(i, j) shared(A, scalar)
-    for (i = 0; i < r; i++)
-        for (j = 0; j < c; j++)
+    for (i = 0; i < R; i++) {
+        for (j = 0; j < C; j++) {
             A[i][j] *= scalar;
+        }
+    }
 
     double end = omp_get_wtime();
     printf("Matrix-Scalar Multiplication completed in %f seconds\n", end - st);
+
+    printf("Result Matrix A:\n");
+    for (i = 0; i < R; i++) {
+        for (j = 0; j < C; j++) {
+            printf("%d ", A[i][j]);
+        }
+        printf("\n");
+    }
 
     return 0;
 }

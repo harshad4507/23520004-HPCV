@@ -5,18 +5,16 @@
 #define N 500 
 
 int main() {
-    static int A[N][N], B[N][N], C[N][N];
-    int i, j, k;
+    int A[N][N] = {{1, 2, 3},
+                   {4, 5, 6},
+                   {7, 8, 9}};
 
-    for (i = 0; i < N; i++)
-    {
-        for (j = 0; j < N; j++) 
-        {
-            A[i][j] = rand() % 10;
-            B[i][j] = rand() % 10;
-            C[i][j] = 0;
-        }
-    }
+    int B[N][N] = {{9, 8, 7},
+                   {6, 5, 4},
+                   {3, 2, 1}};
+
+    int C[N][N] = {0};
+    int i, j, k;
 
     double st = omp_get_wtime();
 
